@@ -35,7 +35,7 @@ public class ArrayList<E> implements List<E> {
 
     @SuppressWarnings("unchecked")
     private void tryResize() {
-        if (length < this.data.length) return;
+        if (this.length < this.data.length) return;
 
         E[] newData = (E[]) new Object[this.data.length * 2];
         System.arraycopy(this.data, 0, newData, 0, this.data.length);
@@ -44,7 +44,7 @@ public class ArrayList<E> implements List<E> {
 
     /**
      * Insert given item to this container.<br/>
-     * time complexity: O(n) (The further away from back, more slower.).<br/>
+     * Time complexity: O(n) (The further away from back, more slower.).<br/>
      * @param pos Non-negative integer for insert position
      * @param item Item for insert
      * @throws java.lang.IndexOutOfBoundsException when <code>pos</code> is out of range
@@ -53,16 +53,22 @@ public class ArrayList<E> implements List<E> {
     public void insert(int pos, E item) {
         tryResize();
 
+        for (int i = this.length; pos < i; --i) {
+            this.data[i] = this.data[i - 1];
+        }
+        this.data[pos] = item;
+        this.length += 1;
     }
 
     /**
-     * Append given item to this container's back.
+     * Append given item to this container's back.<br/>
      * Time complexity: O(1).<br/>
      * @param item Item to append
      */
     @Override
     public void append(E item) {
         tryResize();
+
         this.data[this.length] = item;
         this.length += 1;
     }
@@ -80,7 +86,7 @@ public class ArrayList<E> implements List<E> {
     }
 
     /**
-     * Get value in <code>pos</code>
+     * Get value in <code>pos</code>.<br/>
      * Time complexity: O(1).<br/>
      * @param pos Non-negative integer for item position
      * @return Value
@@ -92,7 +98,7 @@ public class ArrayList<E> implements List<E> {
     }
 
     /**
-     * Remove value in <code>pos</code>
+     * Remove value in <code>pos</code>.<br/>
      * Time complexity: O(n) (The further away from back, more slower.).<br/>
      * @param pos Non-negative integer for item position
      * @return Removed value
@@ -100,11 +106,15 @@ public class ArrayList<E> implements List<E> {
      */
     @Override
     public E remove(int pos) {
-        return null;
+        E value = this.data[pos];
+        for (int i = pos; i < this.length - 1; ++i) {
+            this.data[i] = this.data[i + 1];
+        }
+        return value;
     }
 
     /**
-     * Get length of this container.
+     * Get length of this container.<br/>
      * @return Length of this container
      */
     @Override

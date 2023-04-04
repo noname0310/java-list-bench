@@ -104,7 +104,7 @@ public final class DoublyLinkedList<E> implements List<E> {
     }
 
     /**
-     * Append given item to this container's back.
+     * Append given item to this container's back.<br/>
      * Time complexity: O(1).<br/>
      * @param item Item to append
      */
@@ -127,7 +127,7 @@ public final class DoublyLinkedList<E> implements List<E> {
     }
 
     /**
-     * Get value in <code>pos</code>
+     * Get value in <code>pos</code>.<br/>
      * Time complexity: O(n) (The further away from head and tail, more slower.).<br/>
      * @param pos Non-negative integer for item position
      * @return Value
@@ -139,7 +139,7 @@ public final class DoublyLinkedList<E> implements List<E> {
     }
 
     /**
-     * Remove value in <code>pos</code>
+     * Remove value in <code>pos</code>.<br/>
      * Time complexity: O(n) (The further away from head and tail, more slower.).<br/>
      * @param pos Non-negative integer for item position
      * @return Removed value
@@ -157,7 +157,7 @@ public final class DoublyLinkedList<E> implements List<E> {
     }
 
     /**
-     * Get length of this container.
+     * Get length of this container.<br/>
      * @return Length of this container
      */
     @Override
