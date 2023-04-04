@@ -122,7 +122,7 @@ public final class LinkedList<E> implements List<E> {
         Node<E> node = this.head;
         int iterationCount = index + 1;
 
-        for (int i = 0; i <= iterationCount; ++i) {
+        for (int i = 0; i < iterationCount; ++i) {
             node = node.next;
         }
 
@@ -199,11 +199,17 @@ public final class LinkedList<E> implements List<E> {
      */
     @Override
     public E remove(int pos) {
+        if (this.length == 0) throw new IndexOutOfBoundsException();
+        if (this.length <= pos) throw new IndexOutOfBoundsException();
         Node<E> prevNode = pos == 0
             ? this.head
             : getNodeFromIndex(pos - 1);
         Node<E> removeNode = prevNode.next;
         prevNode.next = prevNode.next.next;
+
+        if (removeNode == this.tail) {
+            this.tail = prevNode;
+        }
 
         E value = removeNode.value;
         this.nodePool.dispose(removeNode);

@@ -68,11 +68,11 @@ public final class DoublyLinkedList<E> implements List<E> {
         }
 
         if (!isReverse) {
-            for (int i = 0; i <= iterationCount; ++i) {
+            for (int i = 0; i < iterationCount; ++i) {
                 node = node.next;
             }
         } else {
-            for (int i = 0; i <= iterationCount; ++i) {
+            for (int i = 0; i < iterationCount; ++i) {
                 node = node.prev;
             }
         }
@@ -99,7 +99,7 @@ public final class DoublyLinkedList<E> implements List<E> {
      */
     @Override
     public void insert(int pos, E item) {
-        Node<E> insertPos = getNodeFromIndex(pos);
+        Node<E> insertPos = pos == this.length ? this.tail : getNodeFromIndex(pos);
         insertFromNode(insertPos, item);
     }
 
@@ -176,7 +176,7 @@ public final class DoublyLinkedList<E> implements List<E> {
 
             @Override
             public boolean hasNext() {
-                return this.current.next != null;
+                return this.current.next != tail;
             }
 
             @Override
@@ -190,7 +190,7 @@ public final class DoublyLinkedList<E> implements List<E> {
 
             @Override
             public boolean hasPrevious() {
-                return current.prev != null;
+                return current.prev != head && current.prev != null;
             }
 
             @Override
