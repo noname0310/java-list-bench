@@ -5,7 +5,6 @@ import java.util.NoSuchElementException;
 /**
  * ArrayList that supports resizing.<br/>
  * loosely optimized for readability.<br/>
- * has strong reference problem.<br/>
  * @param <E> Container type
  */
 public class ArrayList<E> implements List<E> {
@@ -24,10 +23,13 @@ public class ArrayList<E> implements List<E> {
 
     /**
      * Remove all items in this container.<br/>
-     * Time complexity: O(1).<br/>
+     * Time complexity: O(n).<br/>
      */
     @Override
     public void clear() {
+        for (int i = 0; i < this.length; ++i) {
+            data[i] = null;
+        }
         this.length = 0;
     }
 
@@ -49,6 +51,7 @@ public class ArrayList<E> implements List<E> {
      */
     @Override
     public void insert(int pos, E item) {
+        if (this.length < pos) throw new IndexOutOfBoundsException();
         tryResize();
 
         for (int i = this.length; pos < i; --i) {
@@ -80,6 +83,7 @@ public class ArrayList<E> implements List<E> {
      */
     @Override
     public void update(int pos, E item) {
+        if (this.length <= pos) throw new IndexOutOfBoundsException();
         this.data[pos] = item;
     }
 
@@ -92,6 +96,7 @@ public class ArrayList<E> implements List<E> {
      */
     @Override
     public E getValue(int pos) {
+        if (this.length <= pos) throw new IndexOutOfBoundsException();
         return this.data[pos];
     }
 
@@ -110,6 +115,7 @@ public class ArrayList<E> implements List<E> {
         for (int i = pos; i < this.length - 1; ++i) {
             this.data[i] = this.data[i + 1];
         }
+        this.data[this.length - 1] = null;
         this.length -= 1;
         return value;
     }
