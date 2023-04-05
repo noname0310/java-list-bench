@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 /**
  * ArrayList that supports resizing.<br/>
  * loosely optimized for readability.<br/>
+ * has strong reference problem.<br/>
  * @param <E> Container type
  */
 public class ArrayList<E> implements List<E> {
@@ -23,14 +24,11 @@ public class ArrayList<E> implements List<E> {
 
     /**
      * Remove all items in this container.<br/>
-     * Make internal array into garbage.<br/>
      * Time complexity: O(1).<br/>
      */
     @Override
-    @SuppressWarnings("unchecked")
     public void clear() {
         this.length = 0;
-        this.data = (E[]) new Object[this.data.length];
     }
 
     @SuppressWarnings("unchecked")
@@ -106,10 +104,13 @@ public class ArrayList<E> implements List<E> {
      */
     @Override
     public E remove(int pos) {
+        if (this.length == 0) throw new IndexOutOfBoundsException();
+        if (this.length <= pos) throw new IndexOutOfBoundsException();
         E value = this.data[pos];
         for (int i = pos; i < this.length - 1; ++i) {
             this.data[i] = this.data[i + 1];
         }
+        this.length -= 1;
         return value;
     }
 
